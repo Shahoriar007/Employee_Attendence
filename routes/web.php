@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('employee.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('auth/google',[GoogleController::class,'loginWithGoogle'])->name('loginWithGoogle');
+
+Route::any('auth/google/callback',[GoogleController::class,'callbackFormGoogle'])->name('callback');
 
 // Admin route stats
 Route::prefix('employee')->middleware(['auth', 'verified'])->group(function () {
